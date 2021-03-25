@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  faunadb:
+    image: fauna/faunadb:latest
+    container_name: ignews.faunadb
+    ports:
+      - ${FAUNA_PORT}:${FAUNA_PORT}
+    volumes:
+      - faunadbdata:/var/lib/faunadb
+
+  stripecli:
+    image: stripe/stripe-cli:latest
+    container_name: ignews.stripecli
+    environment:
+      STRIPE_API_KEY: ${STRIPE_API_KEY}
+      STRIPE_DEVICE_NAME: ${STRIPE_DEVICE_NAME}
+    network_mode: host
+    volumes:
+      - stripeclidata:/var/lib/stripecli
+    command: listen --forward-to ${STRIPE_WEBHOOKS_URL}
+
+volumes:
+  faunadbdata:
+  stripeclidata:

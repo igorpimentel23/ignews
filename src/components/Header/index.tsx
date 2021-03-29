@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import ActiveLink from '../ActiveLink';
 import SignInButton from '../SignInButton';
 

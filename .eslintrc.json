@@ -24,6 +24,7 @@
     "prettier"
   ],
   "rules": {
+    "jsx-a11y/anchor-is-valid": "off",
     "camelcase": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "react/jsx-props-no-spreading": "off",

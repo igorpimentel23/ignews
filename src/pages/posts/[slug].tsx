@@ -4,10 +4,14 @@ import { getSession } from 'next-auth/client';
 import { RichText } from 'prismic-dom';
 import Head from 'next/head';
 
+import { Session } from 'next-auth';
 import getPrismicClient from '../../services/prismic';
 
 import styles from './post.module.scss';
 
+interface SessionProps extends Session {
+  activeSubscription: unknown;
+}
 interface PostProps {
   post: {
     slug: string;
@@ -41,30 +45,46 @@ export const getServerSideProps: GetServerSideProps = async ({
   req,
   params,
 }) => {
-  const session = await getSession({ req });
+  const session = (await getSession({ req })) as SessionProps;
   const { slug } = params;
 
-  /* if(!session){
-
-  } */
+  if (!session?.activeSubscription) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
 
   const prismic = getPrismicClient(req);
 
-  const response = await prismic.getByUID('publication', String(slug), {});
+  let post = {};
 
-  const post = {
-    slug,
-    title: RichText.asText(response.data.title),
-    content: RichText.asHtml(response.data.content),
-    updatedAt: new Date(response.last_publication_date).toLocaleDateString(
-      'pt-BR',
-      {
-        day: '2-digit',
-        month: 'long',
-        year: 'numeric',
-      },
-    ),
-  };
+  try {
+    const response = await prismic.getByUID('publication', String(slug), {});
+
+    post = {
+      slug,
+      title: RichText.asText(response.data.title),
+      content: RichText.asHtml(response.data.content),
+      updatedAt: new Date(response.last_publication_date).toLocaleDateString(
+        'pt-BR',
+        {
+          day: '2-digit',
+          month: 'long',
+          year: 'numeric',
+        },
+      ),
+    };
+  } catch {
+    post = {
+      slug,
+      title: '',
+      content: '',
+      updatedAt: '',
+    };
+  }
 
   return {
     props: {

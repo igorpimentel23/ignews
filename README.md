@@ -1,3 +1,21 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Ignews](#ignews)
+  - [Começando](#come%C3%A7ando)
+    - [Pré-requisitos](#pr%C3%A9-requisitos)
+    - [Instalando](#instalando)
+      - [Configurando o Stripe](#configurando-o-stripe)
+      - [Configurando as chaves de Acesso do Github](#configurando-as-chaves-de-acesso-do-github)
+      - [Configurando o Faunadb](#configurando-o-faunadb)
+      - [Configurando o Prismic CMS](#configurando-o-prismic-cms)
+      - [Iniciando o projeto](#iniciando-o-projeto)
+  - [Autores](#autores)
+  - [Licença](#licen%C3%A7a)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Ignews
 
 Blog em NextJS em que o usuário necessita fazer o login pelo Github e também uma assinatura mensal para ter acesso aos posts. A aplicação utiliza o FaunaDB como banco de dados, Stripe como plataforma de pagamentos e Prismic CMS como editor para os posts.
